@@ -7,13 +7,13 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Tarefas',
-    component: () => import('../views/Tarefas.vue')
+    name: 'Home',
+    component: () => import('../views/Home.vue')
   },
   {
-    path: '/sobre',
-    name: 'Sobre',
-    component: () => import('../views/AboutView.vue')
+    path: '/consult-Chain',
+    name: 'consultChain',
+    component: () => import('../views/consultChain.vue')
   }
 ]
 

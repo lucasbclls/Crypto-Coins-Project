@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Home from '../views/Home.vue'
+import consultChain from '@/views/consultChain.vue'
 
 
 Vue.use(VueRouter)
@@ -11,7 +13,7 @@ const routes = [
     component: () => import('../views/Home.vue')
   },
   {
-    path: '/consult-Chain',
+    path: '/consultChain',
     name: 'consultChain',
     component: () => import('../views/consultChain.vue')
   }

@@ -61,6 +61,7 @@ export default {
       api.get('/coins').then(response => {
       this.coin = response.data
       this.filteredCoins = response.data
+      console.log(this.filteredCoins)
     }) 
   },
   methods: {

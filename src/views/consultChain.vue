@@ -2,18 +2,20 @@
   <div>
     <h2>Selecione uma criptomoeda:</h2>
     <select>
+      dacxi
     </select>
 
     <h2>Selecione uma data e hora:</h2>
-    <input type="datetime-local" v-model="selectedDate" />
+    <input type="date" v-model="data" />
+    <button v-on:click="enviarData">Enviar</button>
 
     <h2>Preço da na data selecionada:</h2>
     <tr>
-      <td> preço da moeda em BRL R$: {{ resposta.brl }}</td> <br>
-      <td>preço da moeda em USD $: {{ }}</td>
-      <td></td>
+      <td> preço da moeda em BRL R$: {{ coinBrl }}</td>
+      <td>preço da moeda em USD $:{{ coinUsd }} </td>
+      <td>Preço da moeda em EUR: {{ coinEur }}</td>
+      <td> a data selecionada foi: {{ name }}</td>
     </tr>
-    <p>Selecione uma criptomoeda e uma data e hora para ver o preço.</p>
   </div>
 
   <!--
@@ -49,33 +51,60 @@
 </template>
 
 <script>
-import dataTime from '@/services/dataTime.js'
-
+import axios from 'axios'
 export default {
 
   name: 'Home',
   data() {
     return {
-      resposta: [{
-        brl: this.brl,
-        usd: this.usd,
-        eur: this.eur
-      }],
+      coinBrl: [''],
+      coinEur: [''],
+      coinUsd: [''],
+      data: "",
+      name: ""
     }
   },
   mounted() {
-    dataTime.get('/coins').then(resp => {
-      this.brl = resp.data.market_data.current_price.brl.append(this.brl, resposta)
-      this.usd = resp.data.market_data.current_price.usd.JSON.parse()
-      this.eur = resp.data.market_data.current_price.eur.JSON.parse()
+    axios.get(`https://api.coingecko.com/api/v3/coins/bitcoin/history?date=30-03-2022`)
+      .then(resp => {
+      this.coinBrl = resp.data.market_data.current_price.brl
+      this.coinUsd = resp.data.market_data.current_price.usd
+      this.coinEur = resp.data.market_data.current_price.eur
+ 
 
-    })
-  }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+    
+   /* dataTime.get('/coins').then(resp => {
+      this.coinBrl = resp.data.market_data.current_price.brl
+      this.coinUsd = resp.data.market_data.current_price.usd
+      this.coinEur = resp.data.market_data.current_price.eur
 
-
-
-
+    }),
+      dataTime.get(`/date`)
+      .then(response => {
+        this.user = response.data
+        console.log(user)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  
+    
+  }, */
+  
+  methods: {
+  enviarData(e) {
+      this.name = this.data.split("-").reverse().join("-")
+      console.log(this.name)  
+  },  
+ 
+  } 
 }
+
 
 
 

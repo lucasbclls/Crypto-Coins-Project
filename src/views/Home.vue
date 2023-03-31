@@ -57,20 +57,20 @@ export default {
       textSearch: "",
     }
   },
-  mounted(){
-      api.get('/coins').then(response => {
+  mounted() {
+    api.get('/coins').then(response => {
       this.coin = response.data
       this.filteredCoins = response.data
       console.log(this.filteredCoins)
-    }) 
+    })
   },
   methods: {
     searchCoin() {
-      this.filteredCoins = this.coin.filter((coin) => 
-      coin.name.toLowerCase().includes(this.textSearch.toLowerCase()) ||
-      coin.symbol.toLowerCase().includes(this.textSearch.toLowerCase()) );
+      this.filteredCoins = this.coin.filter((coin) =>
+        coin.name.toLowerCase().includes(this.textSearch.toLowerCase()) ||
+        coin.symbol.toLowerCase().includes(this.textSearch.toLowerCase()));
     },
-  
+
   },
 
 
